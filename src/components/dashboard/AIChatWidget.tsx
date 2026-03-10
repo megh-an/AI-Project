@@ -10,22 +10,29 @@ interface Message {
 
 const mockResponses: Record<string, string> = {
   default:
-    "I'm the **Aersense AI Agent**. I monitor air quality across all sensor nodes, predict trends, and take autonomous actions to maintain optimal conditions.\n\nI can help you with:\n- 📊 Current air quality analysis\n- 🔮 Predictive trend forecasting\n- 🤖 Reviewing autonomous actions taken\n- ⚠️ Alert investigation & response\n\nWhat would you like to know?",
-  air: "Based on current sensor data:\n\n| Metric | Value | Status |\n|--------|-------|--------|\n| AQI | 62 | Moderate |\n| PM2.5 | 18 µg/m³ | Acceptable |\n| CO₂ | 520 ppm | Normal |\n\n**Trend:** AQI has been gradually improving over the past 3 hours. I've proactively increased ventilation in Zone A where I detected a PM2.5 micro-spike 5 minutes ago.",
-  predict:
-    "**24-Hour Air Quality Forecast:**\n\n🟢 **Next 6 hours:** AQI expected to stay between 45-65 (Good-Moderate)\n🟡 **6-12 hours:** Slight increase predicted due to morning traffic patterns, AQI may reach 75\n🟢 **12-24 hours:** Return to baseline expected\n\n**Autonomous Actions Planned:**\n1. Pre-emptive ventilation boost at 7:00 AM\n2. HEPA filter activation if PM2.5 exceeds 35 µg/m³",
+    "I'm the **Aerosense AI Agent** — your aircraft predictive intelligence system. I monitor fleet health, predict failures, optimize flights, and take autonomous actions.\n\nI can help you with:\n- ✈️ Flight delay predictions & route optimization\n- 🔧 Predictive maintenance & failure forecasting\n- ⛽ Fuel efficiency analysis\n- 🌩️ Weather impact assessment\n- 🤖 Reviewing autonomous agent actions\n\nWhat would you like to know?",
+  engine:
+    "**Engine Health Analysis — Fleet Summary:**\n\n| Aircraft | Engine Health | Status |\n|----------|-------------|--------|\n| N781AE | 94% | ✅ Nominal |\n| N445BX | 88% | ⚠️ Monitor APU |\n| N923CF | 97% | ✅ Excellent |\n| N112DK | 72% | 🔴 Turbine blade fatigue |\n| N667EL | 91% | ✅ Good |\n| N334FM | 65% | 🔴 Hydraulic issue |\n\n**AI Recommendation:** N112DK requires immediate turbine blade replacement. I've already grounded the aircraft and initiated the maintenance protocol. Estimated repair time: 18 hours.",
+  flight:
+    "**Active Flight Predictions:**\n\n🟢 **SL-1042 (JFK→LAX):** On time, +12min buffer. Tailwind advantage at FL380.\n\n🔴 **SL-2087 (ORD→MIA):** High delay risk — 45min predicted. Thunderstorm cell detected.\n- **Agentic Action:** I've calculated an alternate route via FL320 that reduces the delay to 18min and avoids severe turbulence.\n\n🟢 **TO-0551 (SFO→NRT):** Optimal conditions. Jet stream aligned at FL410. Fuel savings estimated at 2,400L.\n\n🟡 **GW-8834 (LHR→DXB):** Moderate delay risk from Mediterranean headwinds. Monitoring.",
+  maintenance:
+    "**Predictive Maintenance Forecast:**\n\n🔴 **Critical — N112DK Turbine Blade #3:**\n- Predicted failure: March 15 (92% confidence)\n- Remaining life: 12%\n- Cost: $185,000\n- **Status:** Already grounded. Parts ordered.\n\n🔴 **Critical — N334FM Hydraulic Pump:**\n- Predicted failure: March 20 (87% confidence)\n- Remaining life: 8%\n- Cost: $42,000\n- **Agentic action:** Spare parts pre-positioned at base\n\n🟡 **Warning — N445BX APU Starter:**\n- Predicted failure: April 5 (78% confidence)\n- Remaining life: 35%\n- Scheduled for next C-check",
+  fuel:
+    "**Fuel Optimization Report (Today):**\n\n⛽ **Total fuel saved:** 84,200 L (fleet-wide, AI-optimized)\n\n**Per-flight optimizations:**\n- TO-0551: Saved 2,400L via jet stream routing\n- SL-1042: Saved 800L via optimal altitude selection\n- RJ-4421: Saved 350L via weight distribution optimization\n\n**Anomaly:** N445BX showing 8% higher fuel burn than model predicts. AI analysis suggests possible engine trim deviation. Recommendation: Ground inspection before next flight.\n\n**Monthly savings projection:** ~$340,000 in fuel costs",
+  weather:
+    "**Weather Impact Analysis:**\n\n🌩️ **Active Weather Systems:**\n\n1. **Thunderstorm cell — Central US (FL280-FL380)**\n   - Affects: SL-2087 (ORD→MIA)\n   - AI action: Rerouted below FL320\n   - Impact: +18min delay (reduced from +45min)\n\n2. **Headwind band — Mediterranean (40kt)**\n   - Affects: GW-8834 (LHR→DXB)\n   - AI action: Monitoring, may adjust altitude\n   - Impact: +28min estimated\n\n3. **Jet stream — North Pacific (favorable)**\n   - Benefits: TO-0551 (SFO→NRT)\n   - Fuel savings: ~2,400L\n\n**Forecast:** Conditions improving across all sectors by tomorrow 0600Z.",
   action:
-    "**Recent Autonomous Actions (Last 4 hours):**\n\n✅ Increased HVAC filtration in Zone A (2 min ago)\n⏳ Scheduled ventilation boost for Zone B (15 min ago)\n✅ Sent calibration command to Node Delta (1 hr ago)\n✅ Generated daily air quality report (2 hrs ago)\n\nAll actions were within my authorized parameters. No human override was needed.",
-  alert:
-    "**Active Alert Analysis:**\n\n🔴 **Critical:** PM2.5 threshold exceeded at Node Alpha\n- Root cause: External construction activity detected\n- My response: Boosted HVAC filtration, closed intake vents\n- ETA to resolution: ~45 minutes\n\n🟡 **Warning:** CO₂ rising in Zone B\n- Root cause: High occupancy + reduced ventilation\n- My response: Scheduled ventilation increase\n- Predicted resolution: 2 hours",
+    "**Autonomous Agent Actions (Last 4 hours):**\n\n✅ Grounded N112DK — turbine blade fatigue detected (5 min ago)\n✅ Rerouted SL-2087 around thunderstorm cell (15 min ago)\n✅ Generated fleet maintenance report (45 min ago)\n✅ Optimized TO-0551 fuel load for jet stream (1 hr ago)\n✅ Rescheduled N923CF maintenance to optimize costs (2 hrs ago)\n⏳ Pre-positioning parts for N334FM hydraulic repair (3 hrs ago)\n✅ Updated engine degradation models (4 hrs ago)\n\n**Decisions pending human approval:** None\n**Overrides in last 24h:** 0",
 };
 
 const getResponse = (input: string): string => {
   const lower = input.toLowerCase();
-  if (lower.includes("air") || lower.includes("quality") || lower.includes("aqi") || lower.includes("pm")) return mockResponses.air;
-  if (lower.includes("predict") || lower.includes("forecast") || lower.includes("trend")) return mockResponses.predict;
-  if (lower.includes("action") || lower.includes("autonomous") || lower.includes("agent")) return mockResponses.action;
-  if (lower.includes("alert") || lower.includes("warning") || lower.includes("critical")) return mockResponses.alert;
+  if (lower.includes("engine") || lower.includes("health") || lower.includes("turbine")) return mockResponses.engine;
+  if (lower.includes("flight") || lower.includes("delay") || lower.includes("route")) return mockResponses.flight;
+  if (lower.includes("maintenance") || lower.includes("failure") || lower.includes("repair")) return mockResponses.maintenance;
+  if (lower.includes("fuel") || lower.includes("efficiency") || lower.includes("consumption")) return mockResponses.fuel;
+  if (lower.includes("weather") || lower.includes("turbulence") || lower.includes("storm")) return mockResponses.weather;
+  if (lower.includes("action") || lower.includes("agent") || lower.includes("autonomous")) return mockResponses.action;
   return mockResponses.default;
 };
 
@@ -58,7 +65,6 @@ const AIChatWidget = () => {
 
   return (
     <>
-      {/* Floating button */}
       <AnimatePresence>
         {!open && (
           <motion.button
@@ -73,25 +79,23 @@ const AIChatWidget = () => {
         )}
       </AnimatePresence>
 
-      {/* Chat panel */}
       <AnimatePresence>
         {open && (
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-6 right-6 z-50 w-[400px] h-[520px] glass rounded-xl flex flex-col overflow-hidden shadow-2xl border border-border/50"
+            className="fixed bottom-6 right-6 z-50 w-[420px] h-[540px] glass rounded-xl flex flex-col overflow-hidden shadow-2xl border border-border/50"
           >
-            {/* Header */}
             <div className="flex items-center justify-between px-4 py-3 border-b border-border/50">
               <div className="flex items-center gap-2">
-                <div className="p-1.5 rounded-md bg-primary/10">
+                <div className="p-1.5 rounded-md bg-primary/10 animate-pulse-glow">
                   <Sparkles className="h-4 w-4 text-primary" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-foreground">Aersense AI Agent</p>
+                  <p className="text-sm font-semibold text-foreground">Aerosense AI Agent</p>
                   <p className="text-[10px] text-success flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-success" /> Active & Monitoring
+                    <span className="w-1.5 h-1.5 rounded-full bg-success" /> Monitoring 6 aircraft
                   </p>
                 </div>
               </div>
@@ -100,7 +104,6 @@ const AIChatWidget = () => {
               </button>
             </div>
 
-            {/* Messages */}
             <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-3">
               {messages.map((msg, idx) => (
                 <div key={idx} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
@@ -125,22 +128,20 @@ const AIChatWidget = () => {
                 <div className="flex justify-start">
                   <div className="bg-secondary rounded-lg px-3 py-2 text-xs text-muted-foreground">
                     <div className="flex items-center gap-1">
-                      <Bot className="h-3 w-3 animate-spin" />
-                      Analyzing...
+                      <Bot className="h-3 w-3 animate-spin" /> Analyzing fleet data...
                     </div>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* Input */}
             <div className="p-3 border-t border-border/50">
               <div className="flex items-center gap-2">
                 <input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && send()}
-                  placeholder="Ask the AI agent..."
+                  placeholder="Ask about flights, engines, maintenance..."
                   className="flex-1 bg-secondary rounded-md px-3 py-2 text-xs text-foreground placeholder:text-muted-foreground outline-none focus:ring-1 focus:ring-primary"
                 />
                 <button
@@ -151,11 +152,11 @@ const AIChatWidget = () => {
                   <Send className="h-3.5 w-3.5" />
                 </button>
               </div>
-              <div className="flex gap-1.5 mt-2">
-                {["Air quality?", "Predictions", "Agent actions", "Alerts"].map((q) => (
+              <div className="flex gap-1.5 mt-2 flex-wrap">
+                {["Engine health?", "Flight delays", "Maintenance", "Fuel savings", "Weather", "Agent actions"].map((q) => (
                   <button
                     key={q}
-                    onClick={() => { setInput(q); }}
+                    onClick={() => setInput(q)}
                     className="text-[10px] px-2 py-1 rounded-full bg-secondary text-muted-foreground hover:text-foreground hover:bg-secondary/80 transition-colors"
                   >
                     {q}

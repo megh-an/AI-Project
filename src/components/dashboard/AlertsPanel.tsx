@@ -27,15 +27,15 @@ const AlertsPanel = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.15 }}
-      className="glass rounded-lg p-5"
+      className="glass rounded-lg p-5 lg:col-span-2"
     >
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-semibold text-foreground">Active Alerts</h3>
+        <h3 className="text-sm font-semibold text-foreground">AI Alerts & Autonomous Actions</h3>
         <span className="text-xs px-2 py-0.5 rounded-full bg-destructive/20 text-destructive font-medium">
           {alertList.filter((a) => !a.acknowledged).length} active
         </span>
       </div>
-      <div className="space-y-3 max-h-[360px] overflow-y-auto pr-1">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[320px] overflow-y-auto pr-1">
         {alertList.map((alert) => {
           const config = severityConfig[alert.severity];
           const Icon = config.icon;
@@ -51,11 +51,11 @@ const AlertsPanel = () => {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
                     <p className="text-xs font-semibold text-foreground">{alert.title}</p>
-                    <span className="text-[10px] text-muted-foreground">{timeAgo(alert.timestamp)}</span>
+                    <span className="text-[10px] text-muted-foreground ml-2 whitespace-nowrap">{timeAgo(alert.timestamp)}</span>
                   </div>
                   <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">{alert.message}</p>
                   <div className="flex items-center justify-between mt-2">
-                    <span className="text-[10px] text-muted-foreground">{alert.source}</span>
+                    <span className="text-[10px] text-primary font-medium">{alert.source}</span>
                     {!alert.acknowledged && (
                       <button
                         onClick={() => acknowledge(alert.id)}
