@@ -1,20 +1,14 @@
-import { Wind, Droplets, Thermometer, Gauge, Cloudy, Zap } from "lucide-react";
+import { Plane, Wrench, Fuel, TrendingDown, DollarSign, ShieldCheck } from "lucide-react";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import MetricCard from "@/components/dashboard/MetricCard";
-import AirQualityChart from "@/components/dashboard/AirQualityChart";
-import EnvironmentChart from "@/components/dashboard/EnvironmentChart";
+import EngineHealthChart from "@/components/dashboard/EngineHealthChart";
+import FlightPredictionsPanel from "@/components/dashboard/FlightPredictionsPanel";
+import MaintenancePredictionsPanel from "@/components/dashboard/MaintenancePredictionsPanel";
+import FleetStatusPanel from "@/components/dashboard/FleetStatusPanel";
 import AlertsPanel from "@/components/dashboard/AlertsPanel";
 import AgentActivityPanel from "@/components/dashboard/AgentActivityPanel";
-import SensorNodesPanel from "@/components/dashboard/SensorNodesPanel";
 import AIChatWidget from "@/components/dashboard/AIChatWidget";
-import { latestReading } from "@/data/mockData";
-
-const getAqiStatus = (aqi: number) => {
-  if (aqi <= 50) return "good";
-  if (aqi <= 100) return "moderate";
-  if (aqi <= 150) return "poor";
-  return "critical" as const;
-};
+import { fleetStats } from "@/data/mockData";
 
 const Index = () => {
   return (
@@ -24,25 +18,30 @@ const Index = () => {
       <main className="p-6 space-y-6 max-w-[1600px] mx-auto">
         {/* KPI Cards */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          <MetricCard title="AQI" value={latestReading.aqi} icon={Gauge} status={getAqiStatus(latestReading.aqi)} trend="down" trendValue="8%" />
-          <MetricCard title="PM2.5" value={latestReading.pm25} unit="µg/m³" icon={Wind} status={latestReading.pm25 > 35 ? "poor" : "good"} trend="down" trendValue="12%" />
-          <MetricCard title="PM10" value={latestReading.pm10} unit="µg/m³" icon={Cloudy} status={latestReading.pm10 > 50 ? "moderate" : "good"} trend="stable" trendValue="2%" />
-          <MetricCard title="CO₂" value={latestReading.co2} unit="ppm" icon={Zap} status={latestReading.co2 > 800 ? "poor" : "good"} trend="up" trendValue="5%" />
-          <MetricCard title="Temp" value={latestReading.temperature} unit="°C" icon={Thermometer} status="good" trend="stable" trendValue="0.2°" />
-          <MetricCard title="Humidity" value={latestReading.humidity} unit="%" icon={Droplets} status={latestReading.humidity > 65 ? "moderate" : "good"} trend="down" trendValue="3%" />
+          <MetricCard title="Fleet Active" value={`${fleetStats.inFlight}/${fleetStats.totalAircraft}`} icon={Plane} status="good" trend="stable" trendValue="100%" delay={0} />
+          <MetricCard title="Avg Engine Health" value={`${fleetStats.avgEngineHealth}%`} icon={ShieldCheck} status={fleetStats.avgEngineHealth > 85 ? "good" : "moderate"} trend="down" trendValue="2%" delay={1} />
+          <MetricCard title="In Maintenance" value={fleetStats.maintenance + fleetStats.grounded} icon={Wrench} status={fleetStats.grounded > 0 ? "moderate" : "good"} trend="up" trendValue="1" trendPositive={false} delay={2} />
+          <MetricCard title="Fuel Saved" value="84.2K" unit="L" icon={Fuel} status="good" trend="up" trendValue="12%" trendPositive={true} delay={3} />
+          <MetricCard title="Delays Prevented" value={fleetStats.predictedDelaysSaved} icon={TrendingDown} status="good" trend="up" trendValue="8%" trendPositive={true} delay={4} />
+          <MetricCard title="Cost Saved" value="$1.24M" icon={DollarSign} status="good" trend="up" trendValue="15%" trendPositive={true} delay={5} />
         </div>
 
-        {/* Charts Row */}
+        {/* Engine Health Chart + Flight Predictions */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <AirQualityChart />
-          <EnvironmentChart />
+          <EngineHealthChart />
+          <FlightPredictionsPanel />
+        </div>
+
+        {/* Alerts Row */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <AlertsPanel />
+          <AgentActivityPanel />
         </div>
 
         {/* Bottom Row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <AlertsPanel />
-          <AgentActivityPanel />
-          <SensorNodesPanel />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <MaintenancePredictionsPanel />
+          <FleetStatusPanel />
         </div>
       </main>
 
